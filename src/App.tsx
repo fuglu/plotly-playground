@@ -184,11 +184,26 @@ const globalX = [
 ];
 const actual: Plotly.Data = {
   // fill: null,
-  mode: "lines",
+  mode: "lines+markers",
   name: "Anrufe",
-  marker: { color: "#00cea6" },
-  line: { color: "#00cea6", shape: 'spline'},
-  type: "scatter",
+  marker: {
+    color: "white", size: 12, line: {
+      width: 2,
+      color: "#00cea6"
+    }
+  },
+  line: { color: "#00cea6", shape: 'spline' },
+  // type: "scatter",
+  // hoverinfo: "skip",
+  hoverlabel: {
+    bgcolor: "#FFFFFF",
+    bordercolor: "#FFFFFF",
+    
+    font: {
+      color: "#000000"
+    }
+  },
+  hovertemplate: '%{x}<b> <br>%{y} Anrufe</b><extra></extra>',
   x: globalX,
   y: [
     320886.9999999999,
@@ -299,13 +314,14 @@ const actual: Plotly.Data = {
 };
 const upper: Plotly.Data = {
   fill: "tonexty",
-  line: { color: "rgba(57,60,62, 0.8)", shape: 'spline'},
+  line: { color: "rgba(57,60,62, 0.8)", shape: 'spline' },
   fillcolor: "rgba(0,0,0,0.2)",
   // line: { color: "rgba(0,0,0,0.2)" },
   // fillcolor: "rgba(0,0,0,0.2)",
   mode: "lines",
   name: "upper_band",
   type: "scatter",
+  hoverinfo: "skip",
   x: globalX,
   y: [
     405946.0375705701,
@@ -416,11 +432,12 @@ const upper: Plotly.Data = {
 };
 const lower: Plotly.Data = {
   fill: "tozeroy",
-  line: { color: "rgba(57,60,62, 0.8)", shape: 'spline'},
+  line: { color: "rgba(57,60,62, 0.8)", shape: 'spline' },
   fillcolor: "rgba(57,60,62, 0.8)",
   mode: "lines",
   name: "lower_band",
   type: "scatter",
+  hoverinfo: "skip",
   x: globalX,
   y: [
     169843.91939418306,
@@ -539,6 +556,7 @@ const ceil: Plotly.Data = {
   mode: "lines",
   name: "ceil",
   x: globalX,
+  hoverinfo: "skip",
   y: Array.from(Array(globalX.length)).map(_ => 5000000),
 };
 
@@ -551,6 +569,7 @@ function App() {
         data={data}
         config={{ displayModeBar: false }}
         layout={{
+          // hovermode: 'x unified',
           autosize: true,
           xaxis: {
             title: "",
@@ -559,6 +578,8 @@ function App() {
             gridcolor: "transparent",
             ticklen: 10,
             tickcolor: "transparent",
+            autorange: false,
+            range: [globalX[0], globalX[globalX.length - 1]]
           },
           yaxis: {
             title: "",
